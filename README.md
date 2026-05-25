@@ -91,22 +91,26 @@ MSE = mean((X_original - X_reconstructed)²)
 
 The code produces four plots:
 
-**Plot 1 — Cumulative Explained Variance**
+**Plot 1: Cumulative Explained Variance**
+
 Compares how quickly original vs noisy data accumulates variance. Threshold lines at 90%, 95%, 99% with vertical markers showing where each dataset crosses 95%.
 
 ![Plot 1](<plots/plot1.png>)
 
-**Plot 2 — Reconstruction Error vs k**
+**Plot 2: Reconstruction Error vs k**
+
 Shows how MSE changes as k varies from 1 to 500. Demonstrates the cost of removing features and the noise floor effect.
 
 ![Plot 2](<plots/plot2.png>)
 
-**Plot 3 — 2D PCA Scatter**
+**Plot 3: 2D PCA Scatter**
+
 Each image projected onto top 2 PCs, colored by digit class. Shows partial clustering in original, degraded separation in noisy.
 
 ![Plot 3](<plots/plot3.png>)
 
-**Plot 4 — 3D PCA Scatter**
+**Plot 4: 3D PCA Scatter**
+
 Same as 2D but with top 3 components. Original shows elongated structure; noisy appears more spherical due to isotropic noise.
 
 ![Plot 4](<plots/plot4.png>)
@@ -114,13 +118,16 @@ Same as 2D but with top 3 components. Original shows elongated structure; noisy 
 ## Key Findings
 
 **1. Noise flattens the eigenvalue spectrum**
-Gaussian noise is isotropic — it adds equal variance in every direction. This inflates the total variance and boosts lower eigenvalues, making each PC explain a smaller fraction of the total. More components are needed to accumulate to any fixed threshold.
 
-**2. PCA compresses — it does not denoise**
+Gaussian noise is isotropic. It adds equal variance in every direction. This inflates the total variance and boosts lower eigenvalues, making each PC explain a smaller fraction of the total. More components are needed to accumulate to any fixed threshold.
+
+**2. PCA compresses, it does not denoise**
+
 PCA cannot distinguish signal variance from noise variance. Noise is baked into the data before PCA runs. The MSE gap between clean and noisy reconstruction is irreducible at any fixed k.
 
 **3. Adaptive k mitigates but does not eliminate the noise effect**
-At each dataset's own 95% k, MSE values are close (0.00334 vs 0.00365). But achieving that required 326 components for noisy vs 149 for clean — the same quality at more than double the cost.
+
+At each dataset's own 95% k, MSE values are close (0.00334 vs 0.00365). But achieving that required 326 components for noisy vs 149 for clean, the same quality at more than double the cost.
 
 <!-- ## How to Run
 
